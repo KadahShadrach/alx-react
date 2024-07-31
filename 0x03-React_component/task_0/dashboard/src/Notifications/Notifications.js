@@ -1,56 +1,28 @@
 import React from 'react';
 import './Notifications.css'
-import closeBtn from '../assets/close-btn.png';
-import NotificationItem from "./NotificationItem";
-import PropTypes from "prop-types";
+import logo from './close-icon.png'
+import { getLatestNotification } from '../utils/utils';
 
-function Notifications({ displayDrawer, listNotifications }) {
-  return (
-    <React.Fragment>
-      {displayDrawer ? (
-        <div className="'flex-area'">
-          <div className="menuItem">
-            <p>Your notifications</p>
-          </div>
-          <div className="Notifications">
+
+export default function Notifications() {
+    return(
+        <div className='Notifications'>
+            <button 
+            style={{
+                background:"transparent",
+                border: 'none',
+                position: 'absolute',
+                right: 20,
+            }}
+            aria-label='close'>
+                <img src={logo} style={{ width: '0.5rem' }} alt='close-icon' />
+            </button>
+            <p>Here is the list of notifications</p>
             <ul>
-              {listNotifications && listNotifications.length > 0 ? (
-                listNotifications.map(({ id, html, type, value }) => (
-                  <>
-                    <NotificationItem key={id} type={type} value={value} html={html} />
-                    {}
-                  </>
-                ))
-              ) : (
-                <div className="">
-                  <NotificationItem value="No new notification for now" />
-                  <button
-                    style={{fontWeight: "bold", background: "none", border: "none", fontSize: "10px", position: "absolute", right: "2px", top: "2px", cursor: "pointer" }}
-                    aria-label="Close"
-                    onClick={console.log("Close button has been clicked")}
-                  >
-                    <img src={closeBtn} alt="closebtn"  />
-                  </button>
-                </div>
-              )}
+                <li data-priority='default'>New course available</li>
+                <li data-priority='urgent'>New resume available</li>
+                <li data-priority='urgent' dangerouslySetInnerHTML={{ __html: getLatestNotification() }}></li>
             </ul>
-          </div>
         </div>
-      ) : (
-        <div className="menuItem">
-          <p>Your notifications</p>
-        </div>
-      )}
-    </React.Fragment>
-  );
+    );
 }
-
-Notifications.propTypes = {
-  displayDrawer: PropTypes.bool,
-};
-
-Notifications.defaultProps = {
-  displayDrawer: false,
-};
-
-export default Notifications;
