@@ -1,11 +1,14 @@
-.App-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-}
+import React from 'react';
+import { shallow } from 'enzyme';
+import Footer from './Footer';
 
-.App-footer p {
-    text-align: center;
-    border-top: 3px solid var(--holberton-red);
-    padding: 16px 0;
-}
+describe('Footer component', () => {
+    it('render without crashing', () => {
+        shallow(<Footer />);
+    });
+
+    it('render the text Copyright', () => {
+        const wrapper = shallow(<Footer />);
+        expect(wrapper.text()).toContain('Copyright');
+    });
+});
