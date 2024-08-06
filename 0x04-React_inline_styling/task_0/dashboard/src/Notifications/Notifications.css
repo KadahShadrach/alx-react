@@ -1,18 +1,27 @@
 .Notifications {
-	border: 3px dotted var(--holberton-red);
-	padding: 6px 12px;
-	position: relative;
-	margin-top: 12px;
+	padding: 2em;
+	border: 2px dashed red;
 }
 
-.Notifications li {
-    font-size: 17px;
+button[aria-label='Close'] {
+	border: none;
+	background: none;
 }
 
-li[data-notification-type="default"] {
+.notification-header {
+	display: flex;
+	justify-content: space-between;
+}
+
+.menuItem {
+	text-align: right;
+}
+
+[data-notification-type='default'] {
 	color: blue;
 }
 
-li[data-notification-type="urgent"] {
-	color: var(--holberton-red);
+[data-urgent],
+[data-notification-type='urgent'] {
+	color: red;
 }

@@ -1,8 +1,12 @@
 import PropTypes from 'prop-types';
 
-export default PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    type: PropTypes.string.isRequired,
-    value: PropTypes.string,
-    html: PropTypes.shape({__html: PropTypes.string})
+const NotificationItemShape = PropTypes.shape({
+	id: PropTypes.number.isRequired,
+	__html: PropTypes.shape({
+		html: PropTypes.string,
+	}),
+	type: PropTypes.string.isRequired,
+	value: PropTypes.string,
 });
+
+export default NotificationItemShape;

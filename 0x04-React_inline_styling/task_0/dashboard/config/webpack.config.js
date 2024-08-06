@@ -1,51 +1,54 @@
-const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: './src/index.js',
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js'
-    },
-    performance: {
-        maxAssetSize: 1000000,
-        maxEntrypointSize: 1000000,
-    },
-    devServer: {
-        contentBase: path.join(__dirname, 'dist'),
-        compress: true,
-        port: 9000,
-        hot: true,
-    },
-    mode: 'development',
-    devtool: 'inline-source-map',
-    module: {
-        rules: [
-            {
-                test: /\.(js|jsx)$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader'
-                }
-            },
-            {
-                test: /\.css$/,
-                use: ['style-loader', 'css-loader']
-            },
-            {
-                test: /\.(png|jpe?g|gif|svg)$/i,
-                use: [
-                    {
-                        loader: 'file-loader',
-                    },
-                    {
-                        loader: 'image-webpack-loader',
-                        options: {
-                            bypassOnDebug: true, // webpack@1.x
-                            disable: true, // webpack@2.x and newer
-                        },
-                    },
-                ],
-            },
-        ],
-    },
+	entry: './src/index.js',
+	output: {
+		filename: 'bundle.js',
+	},
+	mode: 'development',
+	module: {
+		rules: [
+			{
+				test: /\.css$/i,
+				use: ['style-loader', 'css-loader'],
+			},
+			{
+				test: /\.(png|svg|jpg|jpeg|gif)$/i,
+				// type: 'asset/resource',
+				use: [
+					'file-loader',
+					{
+						loader: 'image-webpack-loader',
+						options: {
+							bypassOnDebug: true, // webpack@1.x
+							disable: true, // webpack@2.x and newer
+						},
+					},
+				],
+			},
+			{
+				test: /\.(js|jsx)$/,
+				exclude: /node_modules/,
+				use: ['babel-loader'],
+			},
+		],
+	},
+	resolve: {
+		extensions: ['*', '.js', '.jsx'],
+	},
+	devServer: {
+		static: './dist',
+		compress: true,
+		open: true,
+		hot: true,
+		port: 8564,
+	},
+	devtool: 'inline-source-map',
+	plugins: [
+		new HtmlWebpackPlugin({
+			name: 'index.html',
+			inject: false,
+			template: './dist/index.html',
+		}),
+	],
 };
