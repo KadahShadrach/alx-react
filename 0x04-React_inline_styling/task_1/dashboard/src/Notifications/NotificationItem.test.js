@@ -1,6 +1,14 @@
 import React from 'react';
 import NotificationItem from './NotificationItem';
 import { shallow } from 'enzyme';
+import { StyleSheetTestUtils } from 'aphrodite';
+
+beforeEach(() => {
+	StyleSheetTestUtils.suppressStyleInjection();
+});
+afterEach(() => {
+	StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
 
 describe('rendering components', () => {
 	it('renders NotificationItem component without crashing', () => {
@@ -14,7 +22,7 @@ describe('rendering components', () => {
 
 		wrapper.setProps({ type: 'default', value: 'test' });
 		expect(wrapper.html()).toEqual(
-			'<li data-notification-type="default">test</li>'
+			'<li class="default_1tsdo2i" data-notification-type="default">test</li>'
 		);
 	});
 
@@ -22,7 +30,9 @@ describe('rendering components', () => {
 		const wrapper = shallow(<NotificationItem />);
 
 		wrapper.setProps({ html: '<u>test</u>' });
-		expect(wrapper.html()).toEqual('<li data-urgent="true"><u>test</u></li>');
+		expect(wrapper.html()).toEqual(
+			'<li data-urgent="true" class="urgent_137u7ef"><u>test</u></li>'
+		);
 	});
 });
 

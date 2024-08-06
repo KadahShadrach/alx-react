@@ -1,6 +1,6 @@
-import { shallow } from 'enzyme';
 import React from 'react';
-import Login from './Login';
+import Header from './Header';
+import { shallow } from 'enzyme';
 import { StyleSheetTestUtils } from 'aphrodite';
 
 beforeEach(() => {
@@ -11,13 +11,15 @@ afterEach(() => {
 });
 
 describe('Header', () => {
-	it('should render without crashing', () => {
-		const wrapper = shallow(<Login />);
+	it('render without crashing', () => {
+		const wrapper = shallow(<Header />);
 		expect(wrapper.exists()).toEqual(true);
 	});
-	it('should have 2 input tags and 2 label tags', () => {
-		const wrapper = shallow(<Login />);
-		expect(wrapper.find('label')).toHaveLength(2);
-		expect(wrapper.find('input')).toHaveLength(2);
+	it('should render a h1', () => {
+		const wrapper = shallow(<Header />);
+		expect(wrapper.exists('img')).toEqual(true);
+		expect(wrapper.containsMatchingElement(<h1>School dashboard</h1>)).toEqual(
+			true
+		);
 	});
 });
