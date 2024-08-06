@@ -1,10 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App/App';
+import { getFullYear, getFooterCopy, getLatestNotification } from './utils';
 
-ReactDOM.render(
-	<React.StrictMode>
-		<App />
-	</React.StrictMode>,
-	document.getElementById('root')
-);
+test('returns current year', () => {
+	expect(getFullYear()).toBe(2022);
+});
+
+test('correct footer copy', () => {
+	expect(getFooterCopy(true)).toBe('Holberton School');
+	expect(getFooterCopy(false)).toBe('Holberton School main dashboard');
+});
+
+test('returns right notification', () => {
+	expect(getLatestNotification()).toBe(
+		'<strong>Urgent Requirement</strong> - complete by EOD'
+	);
+});
