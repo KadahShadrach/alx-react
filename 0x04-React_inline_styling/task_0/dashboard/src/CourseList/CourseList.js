@@ -1,48 +1,38 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { StyleSheet, css } from 'aphrodite';
+import PropType from 'prop-types';
+import CourseShape from './CourseShape';
+import CourseListRow from './CourseListRow';
+import './CourseList.css';
 
-const styles = StyleSheet.create({
-	header: {
-		backgroundColor: '#deb5b545',
-	},
+function CourseList({ listCourses }) {
+  return (
+    <table id="CourseList" cellPadding="0" cellSpacing="0">
+      <thead>
+        <CourseListRow isHeader={true} textFirstCell='Available courses' />
+        <CourseListRow isHeader={true} textFirstCell='Course name' textSecondCell="Credit" />
+      </thead>
+      <tbody>
+        {
+        listCourses.length == 0 ?
+          <CourseListRow isHeader={false} textFirstCell='No course available yet'/>
+        : null
+        }
+        {
+          listCourses.map((val, idx) => {
+            return <CourseListRow isHeader={false} textFirstCell={val.name} textSecondCell={val.credit} key={val.id}/>
+          })
+        }
+      </tbody>
+    </table>
+  );
+}
 
-	normal: {
-		backgroundColor: '#f5f5f5ab',
-	},
-});
-
-const CourseListRow = ({ isHeader, textFirstCell, textSecondCell }) => {
-	return (
-		<tr className={isHeader ? css(styles.header) : css(styles.normal)}>
-			{isHeader ? (
-				textSecondCell === null ? (
-					<th colSpan={2}>{textFirstCell}</th>
-				) : (
-					<>
-						<th>{textFirstCell}</th>
-						<th>{textSecondCell}</th>
-					</>
-				)
-			) : (
-				<>
-					<td>{textFirstCell}</td>
-					<td>{textSecondCell}</td>
-				</>
-			)}
-		</tr>
-	);
+CourseList.defaultProps = {
+  listCourses: []
 };
 
-CourseListRow.propTypes = {
-	isHeader: PropTypes.bool,
-	textFirstCell: PropTypes.string.isRequired,
-	textSecondCell: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+CourseList.propType = {
+  listCourses: PropType.arrayOf(CourseShape)
 };
 
-CourseListRow.defaultProps = {
-	isHeader: false,
-	textSecondCell: null,
-};
-
-export default CourseListRow;
+export default CourseList;
