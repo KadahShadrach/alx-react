@@ -1,9 +1,28 @@
 import React from 'react';
-import './Notifications.css';
 import closeIcon from '../assets/close-icon.png';
 import NotificationItem from './NotificationItem';
 import PropTypes from 'prop-types';
 import NotificationItemShape from './NotificationItemShape';
+import { StyleSheet, css } from 'aphrodite';
+
+const styles = StyleSheet.create({
+	Notifications: {
+		padding: '2em',
+		border: '2px dashed red',
+	},
+	menuItem: {
+		textAlign: 'right',
+	},
+	'notification-header': {
+		display: 'flex',
+		justifyContent: 'space-between',
+	},
+	'flex-area': {
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'flex-end',
+	},
+});
 
 class Notifications extends React.Component {
 	constructor(props) {
@@ -23,11 +42,11 @@ class Notifications extends React.Component {
 		return (
 			<React.Fragment>
 				{this.props.displayDrawer ? (
-					<div className='flex-area'>
-						<div className='menuItem'>
+					<div className={css(styles['flex-area'])}>
+						<div className={css(styles.menuItem)}>
 							<p>Your notifications</p>
 						</div>
-						<div className='Notifications'>
+						<div className={css(styles.Notifications)}>
 							<ul>
 								{this.props.listNotifications &&
 								this.props.listNotifications.length > 0 ? (
@@ -43,9 +62,13 @@ class Notifications extends React.Component {
 										)
 									)
 								) : (
-									<div className='notification-header'>
+									<div className={css(styles['notification-header'])}>
 										<NotificationItem value='No new notification for now' />
 										<button
+											style={{
+												border: 'none',
+												background: 'none',
+											}}
 											aria-label='Close'
 											onClick={console.log('Close button has been clicked')}
 										>
@@ -61,7 +84,7 @@ class Notifications extends React.Component {
 						</div>
 					</div>
 				) : (
-					<div className='menuItem'>
+					<div className={css(styles.menuItem)}>
 						<p>Your notifications</p>
 					</div>
 				)}
