@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
 
   input: {
     margin: "10px",
-  },git
+  },
 });
 
 export default Login;
