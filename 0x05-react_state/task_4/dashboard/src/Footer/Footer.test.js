@@ -1,7 +1,4 @@
-/**
- * @jest-environment jsdom
- */
-import { shallow, mount } from "enzyme";
+import { shallow,  mount } from "enzyme";
 import React from "react";
 import Footer from "./Footer";
 import { getFullYear, getFooterCopy } from "../utils/utils";
@@ -12,14 +9,12 @@ describe("Footer test", () => {
     const wrapper = shallow(<Footer />);
     expect(wrapper.exists()).toEqual(true);
   });
-
-  it('Footer component renders "Copyright ${getFullYear()} - ${getFooterCopy(true)}"', () => {
-    const wrapper = mount(<Footer />);
-
-    expect(wrapper.find("p").text()).toEqual(`Copyright ${getFullYear()} - ${getFooterCopy(false)}`);
+  it("should render the text Copyright", () => {
+    const wrapper = shallow(<Footer />);
+    expect(wrapper.text()).toEqual(`Copyright ${getFullYear()} - ${getFooterCopy()}`);
   });
 
-  it("Tests that there is no link rendered when user is logged out within context", () => {
+  it("Test that there is no link rendered when the user is logged out witthin context", () => {
     const context = {
       user: {
         email: "",
@@ -41,7 +36,7 @@ describe("Footer test", () => {
     wrapper.unmount();
   });
 
-  it("Tests that there is a link rendered when user is logged in within context", () => {
+  it("Tests that there is a link renderred when the user is logged in within context", () => {
     const context = {
       user: {
         email: "",
@@ -59,7 +54,5 @@ describe("Footer test", () => {
     expect(wrapper.find("a").length).toBe(1);
     expect(wrapper.find("a").exists()).toBe(true);
     expect(wrapper.text()).toContain("Contact us");
-
-    wrapper.unmount();
   });
 });

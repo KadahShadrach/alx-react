@@ -8,18 +8,23 @@ import NotificationItemShape from "./NotificationItemShape";
 class Notifications extends PureComponent {
   constructor(props) {
     super(props);
+
+    // this.markAsRead = this.markAsRead.bind(this);
   }
+
+  // shouldComponentUpdate(nextProps) {
+  //   return nextProps.length > this.props.listNotifications.length || nextProps.displayDrawer !== this.props.displayDrawer;
+  // }
+
+  // markAsRead(id) {
+  //   console.log(`Notification ${id} has been marked as read`);
+  // }
 
   render() {
     return (
       <React.Fragment>
         {!this.props.displayDrawer ? (
-          <div
-            className={css(styles.menuItem)}
-            onClick={() => {
-              this.props.handleDisplayDrawer();
-            }}
-          >
+          <div className={css(styles.menuItem)} onClick={this.props.handleDisplayDrawer}>
             <p>Your notifications</p>
           </div>
         ) : (
@@ -133,7 +138,7 @@ Notifications.defaultProps = {
   listNotifications: [],
   handleDisplayDrawer: () => {},
   handleHideDrawer: () => {},
-  markNotificationAsRead: () => {},
+markNotificationAsRead: () => {},
 };
 
 export default Notifications;

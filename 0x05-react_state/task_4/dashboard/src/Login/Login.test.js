@@ -15,7 +15,7 @@ describe("Header", () => {
     const wrapper = shallow(<Login />);
     expect(wrapper.exists()).toEqual(true);
   });
-  it("should have 3 input tags and 2 label tags", () => {
+  it("should have 2 input tags and 2 label tags", () => {
     const wrapper = shallow(<Login />);
     expect(wrapper.find("label")).toHaveLength(2);
     expect(wrapper.find("input")).toHaveLength(3);
@@ -32,8 +32,8 @@ describe("test for submit input on form", () => {
   it("verify that after changing the value of the two inputs, the button is enabled", () => {
     const wrapper = shallow(<Login />);
 
-    wrapper.find("#email").simulate("change", { target: { value: "t" } });
-    wrapper.find("#password").simulate("change", { target: { value: "t" } });
-    expect(wrapper.find("input[type='submit']").props().disabled).toEqual(true);
-  });
-});
+    wrapper.find("#email").simulate("change", { target: {value: "t"} });
+    wrapper.find("#password").simulate("change", { target: {value: "t" } });
+    expect(wrapper.find("input[type='submit']").props().disabled).toEqual(false);
+  })
+})

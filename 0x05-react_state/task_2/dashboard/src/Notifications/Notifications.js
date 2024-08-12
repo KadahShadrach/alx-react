@@ -13,7 +13,7 @@ class Notifications extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return nextProps.length > this.props.listNotifications.length;
+    return nextProps.length > this.props.listNotifications.length || nextProps.displayDrawer !== this.props.displayDrawer;
   }
 
   markAsRead(id) {
@@ -24,12 +24,7 @@ class Notifications extends Component {
     return (
       <React.Fragment>
         {!this.props.displayDrawer ? (
-          <div
-            className={css(styles.menuItem)}
-            onClick={() => {
-              this.props.handleDisplayDrawer();
-            }}
-          >
+          <div className={css(styles.menuItem)} onClick={this.props.handleDisplayDrawer}>
             <p>Your notifications</p>
           </div>
         ) : (
